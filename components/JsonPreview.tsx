@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import dynamic from "next/dynamic";
 import "jsoneditor/dist/jsoneditor.css";
 
@@ -21,14 +21,6 @@ interface JsonPreviewProps {
 }
 
 const JsonPreview: React.FC<JsonPreviewProps> = ({ data }) => {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   if (!data) {
     return (
       <div className="flex h-full w-full items-center justify-center text-muted-foreground opacity-50">

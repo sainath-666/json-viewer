@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  Maximize2,
-  Minimize2,
-  Copy,
-  Download,
-  Trash2,
-  CheckCircle,
-} from "lucide-react";
+import { Maximize2, Minimize2, Copy, Download, Trash2 } from "lucide-react";
 
 interface ToolbarProps {
   onFormat: () => void;
