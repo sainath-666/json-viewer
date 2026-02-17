@@ -1,10 +1,3 @@
-declare module "react-json-view" {
-  import React from "react";
-  // ... (previous)
-  const ReactJson: React.FC<any>;
-  export default ReactJson;
-}
-
 declare module "jsoneditor-react" {
   import { Component } from "react";
   import { JSONEditorOptions } from "jsoneditor";
