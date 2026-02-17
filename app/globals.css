@@ -91,7 +91,85 @@
   }
 
   body {
-    background-color: var(--color-background);
-    color: var(--color-foreground);
+    @apply bg-background text-foreground;
   }
+}
+
+/* Custom JSON Editor Dark Theme Overrides */
+.jsoneditor-container {
+  height: 100%;
+}
+
+.jsoneditor {
+  border: 1px solid hsl(var(--border)) !important;
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.jsoneditor-menu {
+  background-color: hsl(var(--secondary)) !important;
+  border-bottom: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--secondary-foreground)) !important;
+}
+
+.jsoneditor-contextmenu {
+  background-color: hsl(var(--popover)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+.jsoneditor-contextmenu .jsoneditor-menu li button {
+  color: hsl(var(--popover-foreground)) !important;
+}
+
+.jsoneditor-contextmenu .jsoneditor-menu li button:hover {
+  background-color: hsl(var(--accent)) !important;
+  color: hsl(var(--accent-foreground)) !important;
+}
+
+.jsoneditor-search,
+.jsoneditor-navigation-bar {
+  background: hsl(var(--muted)) !important;
+  border-top: 1px solid hsl(var(--border)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.jsoneditor-frame {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Tree View Colors */
+.jsoneditor-field,
+.jsoneditor-value {
+  color: hsl(var(--foreground)) !important;
+}
+
+div.jsoneditor-field {
+  color: #a6e22e !important; /* Monokai-ish for keys */
+}
+
+div.jsoneditor-value.jsoneditor-string {
+  color: #e6db74 !important; /* Yellow for strings */
+}
+
+div.jsoneditor-value.jsoneditor-number {
+  color: #ae81ff !important; /* Purple for numbers */
+}
+
+div.jsoneditor-value.jsoneditor-boolean {
+  color: #f92672 !important; /* Pink for booleans */
+}
+
+div.jsoneditor-value.jsoneditor-null {
+  color: #fd971f !important; /* Orange for null */
+}
+
+/* Icons filter inversion for dark mode? Or keep standard? standard are colorful but might clash. */
+.jsoneditor-expand-all,
+.jsoneditor-collapse-all {
+  filter: invert(1);
+}
+
+/* Adjust scrollbar if needed */
+.jsoneditor-tree {
+  background-color: hsl(var(--card)) !important;
 }
