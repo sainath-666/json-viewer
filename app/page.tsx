@@ -1,65 +1,169 @@
-import Image from "next/image";
+"use client";
+
+import React, { useState, useEffect } from "react";
+import JsonInput from "@/components/JsonInput";
+import JsonPreview from "@/components/JsonPreview";
+import Toolbar from "@/components/Toolbar"; // We need to update Toolbar to export properly or check my previous write
+import AdComponent from "@/components/AdComponent";
+import {
+  isValidJson,
+  formatJson,
+  minifyJson,
+  parseJson,
+} from "@/utils/jsonUtils";
+import Link from "next/link";
 
 export default function Home() {
+  const [jsonInput, setJsonInput] = useState<string>("");
+  const [parsedJson, setParsedJson] = useState<object | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [viewMode, setViewMode] = useState<"text" | "tree">("text"); // For mobile or simple toggle if needed, but we do split view
+
+  useEffect(() => {
+    // Auto-update preview if valid, silent check
+    if (!jsonInput.trim()) {
+      setParsedJson(null);
+      setError(null);
+      return;
+    }
+    try {
+      const parsed = JSON.parse(jsonInput);
+      setParsedJson(parsed);
+      setError(null);
+    } catch (e) {
+      // Don't show error immediately on typing, only on explicit action or if we want real-time validation without nagging
+      // But we DO want to clear preview if invalid? Or keep last valid?
+      // User requirements: "Validate JSON when user clicks 'Format JSON'".
+      // So we might not auto-validate for error message, but we can try to update preview if valid.
+    }
+  }, [jsonInput]);
+
+  const handleFormat = () => {
+    if (!jsonInput) return;
+    try {
+      const formatted = formatJson(jsonInput);
+      setJsonInput(formatted);
+      setParsedJson(JSON.parse(formatted));
+      setError(null);
+    } catch (e) {
+      setError("Invalid JSON: " + (e as Error).message);
+    }
+  };
+
+  const handleMinify = () => {
+    if (!jsonInput) return;
+    try {
+      const minified = minifyJson(jsonInput);
+      setJsonInput(minified);
+      setParsedJson(JSON.parse(minified)); // Update preview too
+      setError(null);
+    } catch (e) {
+      setError("Invalid JSON: " + (e as Error).message);
+    }
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(jsonInput).then(() => {
+      alert("Copied to clipboard!");
+    });
+  };
+
+  const handleDownload = () => {
+    if (!jsonInput) return;
+    const blob = new window.Blob([jsonInput], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `json-data-${Date.now()}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleClear = () => {
+    setJsonInput("");
+    setParsedJson(null);
+    setError(null);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen flex flex-col bg-background text-foreground font-sans">
+      {/* Header */}
+      <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-20">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-bold text-primary-foreground">
+              {"{ }"}
+            </div>
+            <h1 className="text-xl font-bold tracking-tight">
+              JSON Viewer Tool
+            </h1>
+          </div>
+          <nav className="hidden md:flex gap-4 text-sm font-medium text-muted-foreground">
+            {/* Navigation Links can go here */}
+          </nav>
+        </div>
+      </header>
+
+      {/* Ad Section */}
+      <div className="container mx-auto px-4 py-4">
+        <AdComponent slotId="header-slot" />
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 container mx-auto px-4 pb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-280px)] min-h-[600px]">
+          {/* Left Pane: Input */}
+          <div className="flex flex-col h-full bg-card rounded-xl border shadow-sm overflow-hidden">
+            <div className="p-3 border-b bg-muted/30 flex justify-between items-center">
+              <h2 className="font-semibold text-sm">JSON Input</h2>
+              <span className="text-xs text-muted-foreground">
+                {jsonInput.length} chars
+              </span>
+            </div>
+            <Toolbar
+              onFormat={handleFormat}
+              onMinify={handleMinify}
+              onCopy={handleCopy}
+              onDownload={handleDownload}
+              onClear={handleClear}
+            />
+            <div className="flex-1 relative">
+              <JsonInput
+                value={jsonInput}
+                onChange={setJsonInput}
+                error={error}
+              />
+            </div>
+          </div>
+
+          {/* Right Pane: Preview */}
+          <div className="flex flex-col h-full bg-card rounded-xl border shadow-sm overflow-hidden">
+            <div className="p-3 border-b bg-muted/30 flex justify-between items-center">
+              <h2 className="font-semibold text-sm">Tree View</h2>
+              <span className="text-xs text-muted-foreground">
+                {parsedJson ? "Valid Object" : "Waiting..."}
+              </span>
+            </div>
+            <div className="flex-1 overflow-hidden bg-[#272822]">
+              <JsonPreview data={parsedJson} theme="monokai" />
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Ad Section */}
+        <div className="mt-8">
+          <AdComponent slotId="footer-slot" />
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer className="border-t py-6 bg-muted/20">
+        <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
+          <p>
+            © {new Date().getFullYear()} JSON Viewer Tool. Efficient & Secure.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </footer>
+    </main>
   );
 }
