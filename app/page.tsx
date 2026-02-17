@@ -1,42 +1,33 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import JsonInput from "@/components/JsonInput";
 import JsonPreview from "@/components/JsonPreview";
 import Toolbar from "@/components/Toolbar"; // We need to update Toolbar to export properly or check my previous write
-import AdComponent from "@/components/AdComponent";
-import {
-  isValidJson,
-  formatJson,
-  minifyJson,
-  parseJson,
-} from "@/utils/jsonUtils";
-import Link from "next/link";
+
+import { formatJson, minifyJson } from "@/utils/jsonUtils";
 
 export default function Home() {
   const [jsonInput, setJsonInput] = useState<string>("");
   const [parsedJson, setParsedJson] = useState<object | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [viewMode, setViewMode] = useState<"text" | "tree">("text"); // For mobile or simple toggle if needed, but we do split view
 
-  useEffect(() => {
-    // Auto-update preview if valid, silent check
-    if (!jsonInput.trim()) {
+  const handleInputChange = (value: string) => {
+    setJsonInput(value);
+
+    if (!value.trim()) {
       setParsedJson(null);
       setError(null);
       return;
     }
     try {
-      const parsed = JSON.parse(jsonInput);
+      const parsed = JSON.parse(value);
       setParsedJson(parsed);
       setError(null);
-    } catch (e) {
-      // Don't show error immediately on typing, only on explicit action or if we want real-time validation without nagging
-      // But we DO want to clear preview if invalid? Or keep last valid?
-      // User requirements: "Validate JSON when user clicks 'Format JSON'".
-      // So we might not auto-validate for error message, but we can try to update preview if valid.
+    } catch {
+      // Do nothing on invalid JSON while typing
     }
-  }, [jsonInput]);
+  };
 
   const handleFormat = () => {
     if (!jsonInput) return;
@@ -106,7 +97,7 @@ export default function Home() {
 
       {/* Ad Section */}
       <div className="container mx-auto px-4 py-4">
-        <AdComponent slotId="header-slot" />
+        {/* Ad Space Removed */}
       </div>
 
       {/* Main Content */}
@@ -130,7 +121,7 @@ export default function Home() {
             <div className="flex-1 relative">
               <JsonInput
                 value={jsonInput}
-                onChange={setJsonInput}
+                onChange={handleInputChange}
                 error={error}
               />
             </div>
@@ -151,9 +142,6 @@ export default function Home() {
         </div>
 
         {/* Bottom Ad Section */}
-        <div className="mt-8">
-          <AdComponent slotId="footer-slot" />
-        </div>
       </div>
 
       {/* Footer */}

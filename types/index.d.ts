@@ -1,7 +1,7 @@
 declare module "jsoneditor-react" {
   import { Component } from "react";
-  import { JSONEditorOptions } from "jsoneditor";
 
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   export interface JsonEditorProps {
     value?: any;
     mode?: "tree" | "view" | "form" | "code" | "text";
