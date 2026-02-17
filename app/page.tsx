@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import JsonInput from "@/components/JsonInput";
 import JsonPreview from "@/components/JsonPreview";
 import Toolbar from "@/components/Toolbar"; // We need to update Toolbar to export properly or check my previous write
-import AdComponent from "@/components/AdComponent";
+
 import {
   isValidJson,
   formatJson,
@@ -106,7 +106,7 @@ export default function Home() {
 
       {/* Ad Section */}
       <div className="container mx-auto px-4 py-4">
-        <AdComponent slotId="header-slot" />
+        {/* Ad Space Removed */}
       </div>
 
       {/* Main Content */}
@@ -151,9 +151,6 @@ export default function Home() {
         </div>
 
         {/* Bottom Ad Section */}
-        <div className="mt-8">
-          <AdComponent slotId="footer-slot" />
-        </div>
       </div>
 
       {/* Footer */}
