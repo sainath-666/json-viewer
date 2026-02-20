@@ -48,17 +48,15 @@ const JsonInput: React.FC<JsonInputProps> = ({ value, onChange, error }) => {
       };
       reader.readAsText(file);
     }
+    // reset input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   return (
     <div
-      className={`relative flex flex-col h-full rounded-lg border-2 transition-colors ${
-        isDragging
-          ? "border-primary bg-primary/10"
-          : error
-            ? "border-destructive"
-            : "border-border"
-      }`}
+      className={`relative h-full w-full group transition-all duration-300 ${isDragging ? "ring-2 ring-primary bg-primary/5" : ""}`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
@@ -66,19 +64,22 @@ const JsonInput: React.FC<JsonInputProps> = ({ value, onChange, error }) => {
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        placeholder="Paste your JSON here or drop a file..."
-        className="flex-1 w-full h-full p-4 bg-transparent border-none resize-none focus:outline-none font-mono text-sm leading-relaxed"
+        placeholder="Paste your JSON here or drag & drop a file..."
+        className="form-textarea w-full h-full p-6 pr-32 bg-transparent border-none resize-none focus:outline-none focus:ring-0 font-mono text-[13px] leading-loose text-indigo-50 placeholder:text-white/20 custom-scrollbar"
         spellCheck={false}
       />
 
-      {/* Overlay/Upload Button */}
-      <div className="absolute top-2 right-2 flex items-center gap-2">
+      {/* Floating Upload Button */}
+      <div className="absolute top-4 right-4 opacity-50 group-hover:opacity-100 transition-opacity duration-300">
         <button
           onClick={() => fileInputRef.current?.click()}
-          className="p-2 bg-secondary text-secondary-foreground rounded-full hover:bg-secondary/80 shadow-md transition-all"
+          className="flex items-center gap-2 px-3 py-2 bg-black/40 hover:bg-primary/30 text-white rounded-xl border border-white/10 backdrop-blur-md transition-all hover:scale-105 hover:border-primary/50 shadow-lg"
           title="Upload JSON File"
         >
-          <Upload className="w-4 h-4" />
+          <Upload className="w-4 h-4 text-primary" />
+          <span className="text-xs font-semibold tracking-wide hidden sm:block">
+            Upload File
+          </span>
         </button>
         <input
           type="file"
@@ -89,26 +90,31 @@ const JsonInput: React.FC<JsonInputProps> = ({ value, onChange, error }) => {
         />
       </div>
 
-      {/* Status Status Indicator inside input area */}
-      <div className="absolute bottom-2 right-2 text-xs font-medium px-2 py-1 rounded-md bg-background/80 backdrop-blur-sm border shadow-sm">
-        {error ? (
-          <span className="flex items-center gap-1 text-destructive">
-            <AlertCircle className="w-3 h-3" /> Invalid JSON
-          </span>
-        ) : value.trim() ? (
-          <span className="flex items-center gap-1 text-green-500">
-            <CheckCircle className="w-3 h-3" /> Valid JSON
-          </span>
-        ) : (
-          <span className="text-muted-foreground">Empty</span>
-        )}
-      </div>
+      {/* Modern Status Badge */}
+      {error ? (
+        <div className="absolute bottom-6 right-6 flex items-center gap-2 px-4 py-2 text-xs font-semibold text-red-200 bg-red-500/20 border border-red-500/30 rounded-xl backdrop-blur-md shadow-xl transition-all animate-in fade-in slide-in-from-bottom-2">
+          <AlertCircle className="w-4 h-4 text-red-400" /> JSON Syntax Error
+        </div>
+      ) : value.trim() ? (
+        <div className="absolute bottom-6 right-6 flex items-center gap-2 px-4 py-2 text-xs font-semibold text-emerald-200 bg-emerald-500/20 border border-emerald-500/30 rounded-xl backdrop-blur-md shadow-xl transition-all animate-in fade-in slide-in-from-bottom-2">
+          <CheckCircle className="w-4 h-4 text-emerald-400" /> Valid JSON Code
+        </div>
+      ) : null}
 
+      {/* Drag & Drop Overlay overlaying the full container */}
       {isDragging && (
-        <div className="absolute inset-0 flex items-center justify-center bg-background/80 backdrop-blur-sm rounded-lg z-10 pointer-events-none">
-          <div className="flex flex-col items-center p-6 border-2 border-dashed border-primary rounded-xl bg-card">
-            <FileCode className="w-12 h-12 text-primary mb-2" />
-            <p className="text-lg font-medium">Drop JSON file here</p>
+        <div className="absolute inset-0 flex items-center justify-center bg-[#050511]/80 backdrop-blur-sm z-10 border-2 border-dashed border-primary transition-all">
+          <div className="flex flex-col items-center bg-black/60 p-10 rounded-3xl shadow-2xl border border-white/10 scale-100 animate-in zoom-in-95 duration-200">
+            <div className="p-5 bg-primary/20 rounded-full mb-6 relative">
+              <div className="absolute inset-0 bg-primary/30 rounded-full animate-ping" />
+              <FileCode className="w-12 h-12 text-primary drop-shadow-[0_0_15px_rgba(99,102,241,0.5)] relative z-10" />
+            </div>
+            <p className="text-2xl font-black text-white tracking-widest bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-400">
+              DROP TO IMPORT
+            </p>
+            <p className="text-sm font-medium text-white/50 mt-2">
+              Supports .json files automatically
+            </p>
           </div>
         </div>
       )}
