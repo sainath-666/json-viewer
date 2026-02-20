@@ -81,10 +81,12 @@ export default function Home() {
       {/* Header */}
       <header className="border-b sticky top-0 bg-background/95 backdrop-blur z-20">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-bold text-primary-foreground">
-              {"{ }"}
-            </div>
+          <div className="flex items-center gap-4">
+            <img
+              src="/logo.png"
+              alt="JSON Viewer Logo"
+              className="w-8 h-8 object-contain"
+            />
             <h1 className="text-xl font-bold tracking-tight">
               JSON Viewer Tool
             </h1>

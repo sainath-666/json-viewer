@@ -8,6 +8,10 @@ export const metadata: Metadata = {
   title: "Free Online JSON Viewer & Formatter",
   description:
     "Paste or upload JSON to validate, format, and view it in a beautiful tree structure.",
+  icons: {
+    icon: "/favicon.png",
+    apple: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
