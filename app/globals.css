@@ -28,73 +28,54 @@
 @layer base {
   :root,
   .dark {
-    --background: #050511;
-    --foreground: #f8fafc;
-    --card: rgba(255, 255, 255, 0.02);
-    --card-foreground: #f8fafc;
-    --popover: #0f172a;
-    --popover-foreground: #f8fafc;
-    --primary: #6366f1; /* Indigo */
+    --background: #0d1117;
+    --foreground: #c9d1d9;
+    --card: #161b22;
+    --card-foreground: #c9d1d9;
+    --popover: #161b22;
+    --popover-foreground: #c9d1d9;
+    --primary: #58a6ff;
     --primary-foreground: #ffffff;
-    --secondary: rgba(99, 102, 241, 0.1);
-    --secondary-foreground: #c7d2fe;
-    --muted: rgba(255, 255, 255, 0.05);
-    --muted-foreground: #94a3b8;
-    --accent: rgba(99, 102, 241, 0.15);
-    --accent-foreground: #f1f5f9;
-    --destructive: #ef4444;
-    --destructive-foreground: #f8fafc;
-    --border: rgba(255, 255, 255, 0.1);
-    --input: rgba(255, 255, 255, 0.05);
-    --ring: rgba(99, 102, 241, 0.5);
-    --radius: 1rem;
+    --secondary: #21262d;
+    --secondary-foreground: #c9d1d9;
+    --muted: #0d1117;
+    --muted-foreground: #8b949e;
+    --accent: #161b22;
+    --accent-foreground: #58a6ff;
+    --destructive: #da3633;
+    --destructive-foreground: #ffffff;
+    --border: #30363d;
+    --input: #0d1117;
+    --ring: #58a6ff;
+    --radius: 0.5rem;
   }
 
   body {
     background-color: var(--background);
     color: var(--foreground);
-    background-image:
-      radial-gradient(
-        circle at 15% 50%,
-        rgba(99, 102, 241, 0.12),
-        transparent 28%
-      ),
-      radial-gradient(
-        circle at 85% 30%,
-        rgba(168, 85, 247, 0.12),
-        transparent 28%
-      ),
-      linear-gradient(to bottom right, #050511, #0a0a20);
-    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
   }
 }
 
-.glass-panel {
-  background: rgba(15, 20, 35, 0.4);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 5px;
+  border: 2px solid var(--background);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #484f58;
 }
 
-/* Custom Scrollbar for Textarea & App */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
-}
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* JSON Editor Premium Theme */
+/* JSON Editor Minimal Theme */
 .jsoneditor-container {
   height: 100%;
   width: 100%;
@@ -102,23 +83,29 @@
   flex-direction: column;
 }
 
+.jsoneditor-react-container,
+.jsoneditor,
+.viewer-scroll-container > div {
+  height: 100% !important;
+}
+
 .jsoneditor {
   border: none !important;
   background-color: transparent !important;
-  color: #f8fafc !important;
+  color: var(--foreground) !important;
 }
 
 .jsoneditor-menu {
-  background-color: rgba(0, 0, 0, 0.3) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
-  color: #c7d2fe !important;
+  background-color: var(--card) !important;
+  border-bottom: 1px solid var(--border) !important;
+  color: var(--foreground) !important;
 }
 
 .jsoneditor-menu > button,
 .jsoneditor-menu > div.jsoneditor-modes > button {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  color: #fff !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  background-color: transparent !important;
+  color: var(--foreground) !important;
+  border: 1px solid transparent !important;
   border-radius: 6px !important;
   margin: 3px !important;
   transition: all 0.2s ease;
@@ -126,41 +113,41 @@
 
 .jsoneditor-menu > button:hover,
 .jsoneditor-menu > div.jsoneditor-modes > button:hover {
-  background-color: rgba(99, 102, 241, 0.4) !important;
-  transform: translateY(-1px);
+  background-color: var(--border) !important;
 }
 
 .jsoneditor-contextmenu {
-  background-color: #0f172a !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7) !important;
-  border-radius: 8px !important;
-  overflow: hidden;
-}
-
-.jsoneditor-contextmenu .jsoneditor-menu li button {
-  color: #f8fafc !important;
-  font-family: inherit !important;
-}
-
-.jsoneditor-contextmenu .jsoneditor-menu li button:hover {
-  background-color: rgba(99, 102, 241, 0.2) !important;
-  color: #818cf8 !important;
+  background-color: var(--card) !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5) !important;
+  border-radius: 6px !important;
 }
 
 .jsoneditor-search,
 .jsoneditor-navigation-bar,
 .jsoneditor-statusbar {
-  background: rgba(0, 0, 0, 0.2) !important;
+  background: transparent !important;
   border: none !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
-  color: #94a3b8 !important;
-  font-family: inherit !important;
+  border-top: 1px solid var(--border) !important;
+  color: var(--muted-foreground) !important;
 }
 
 .jsoneditor-frame {
-  color: #f8fafc !important;
+  color: var(--foreground) !important;
   background: transparent !important;
+}
+
+.jsoneditor-search input {
+  background: var(--background) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--foreground) !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  outline: none !important;
+}
+
+.jsoneditor-search input:focus {
+  border-color: var(--primary) !important;
 }
 
 .jsoneditor-tree {
@@ -168,35 +155,36 @@
 }
 
 div.jsoneditor-field {
-  color: #818cf8 !important; /* Soft Indigo */
-  font-weight: 600;
+  color: #79c0ff !important;
 }
 
 div.jsoneditor-value.jsoneditor-string {
-  color: #34d399 !important; /* Emerald */
+  color: #a5d6ff !important;
 }
 
 div.jsoneditor-value.jsoneditor-number {
-  color: #f472b6 !important; /* Pink */
+  color: #79c0ff !important;
 }
 
 div.jsoneditor-value.jsoneditor-boolean {
-  color: #fbbf24 !important; /* Amber */
+  color: #ff7b72 !important;
 }
 
 div.jsoneditor-value.jsoneditor-null {
-  color: #f87171 !important; /* Red */
+  color: #ff7b72 !important;
 }
 
 .jsoneditor-readonly {
-  color: #94a3b8 !important;
+  color: var(--muted-foreground) !important;
 }
 
-/* Icons filter inversion for dark mode */
+.jsoneditor-icon.jsoneditor-next,
+.jsoneditor-icon.jsoneditor-previous,
+.jsoneditor-icon.jsoneditor-search-icon,
 .jsoneditor-expand-all,
 .jsoneditor-collapse-all,
 .jsoneditor-sort,
 .jsoneditor-transform,
 .jsoneditor-repair {
-  filter: invert(1) opacity(0.8);
+  filter: invert(1) opacity(0.7);
 }
