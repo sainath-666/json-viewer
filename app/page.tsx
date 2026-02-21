@@ -5,6 +5,7 @@ import JsonInput from "@/components/JsonInput";
 import JsonPreview from "@/components/JsonPreview";
 import Toolbar from "@/components/Toolbar";
 import { formatJson } from "@/utils/jsonUtils";
+import Image from "next/image";
 
 export default function Home() {
   const [jsonInput, setJsonInput] = useState<string>("");
@@ -50,9 +51,11 @@ export default function Home() {
         {/* Header */}
         <header className="flex items-center justify-between gap-4 bg-card border border-border px-6 py-4 rounded-xl shrink-0">
           <div className="flex items-center gap-3">
-            <img
+            <Image
               src="/logo.png"
               alt="Logo"
+              width={36}
+              height={36}
               className="h-9 w-9 object-contain rounded-md shadow-sm"
             />
             <h1 className="text-xl font-semibold tracking-tight text-foreground/90">
