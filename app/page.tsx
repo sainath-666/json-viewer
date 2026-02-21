@@ -53,8 +53,11 @@ export default function Home() {
             <img
               src="/logo.png"
               alt="Logo"
-              className="h-10 w-auto object-contain rounded-md shadow-sm"
+              className="h-9 w-9 object-contain rounded-md shadow-sm"
             />
+            <h1 className="text-xl font-semibold tracking-tight text-foreground/90">
+              JSON Viewer
+            </h1>
           </div>
 
           <div className="flex">
