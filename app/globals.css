@@ -83,6 +83,12 @@
   flex-direction: column;
 }
 
+.jsoneditor-react-container,
+.jsoneditor,
+.viewer-scroll-container > div {
+  height: 100% !important;
+}
+
 .jsoneditor {
   border: none !important;
   background-color: transparent !important;

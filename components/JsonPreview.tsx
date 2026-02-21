@@ -30,7 +30,7 @@ const JsonPreview: React.FC<JsonPreviewProps> = ({ data }) => {
   }
 
   return (
-    <div className="absolute inset-0">
+    <div className="absolute inset-0 viewer-scroll-container">
       <JsonEditorReact
         value={data}
         mode="tree"
