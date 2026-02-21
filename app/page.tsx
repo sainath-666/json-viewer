@@ -98,6 +98,19 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Footer */}
+        <footer className="shrink-0 text-center text-sm text-foreground/60 transition-colors">
+          Developed by{" "}
+          <a
+            href="https://sainathreddy.in"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-medium text-foreground hover:text-primary underline-offset-4 hover:underline"
+          >
+            SAINATHREDDY
+          </a>
+        </footer>
       </div>
     </main>
   );
