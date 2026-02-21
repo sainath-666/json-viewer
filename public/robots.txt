@@ -1,4 +1,9 @@
+# *
 User-agent: *
 Allow: /
 
+# Host
+Host: https://json-viewer.sainathreddy.in
+
+# Sitemaps
 Sitemap: https://json-viewer.sainathreddy.in/sitemap.xml
