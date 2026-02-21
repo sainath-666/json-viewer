@@ -46,7 +46,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col bg-background text-foreground py-6 px-4 md:px-8">
+    <div className="min-h-screen flex flex-col bg-background text-foreground py-6 px-4 md:px-8">
       <div className="w-full max-w-[1700px] flex flex-col gap-6 mx-auto h-[calc(100vh-3rem)]">
         {/* Header */}
         <header className="flex items-center justify-between gap-4 bg-card border border-border px-6 py-4 rounded-xl shrink-0">
@@ -73,7 +73,10 @@ export default function Home() {
         </header>
 
         {/* Content Area */}
-        <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-0">
+        <main
+          role="main"
+          className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-0"
+        >
           {/* Source Left */}
           <div className="flex flex-col border border-border rounded-xl bg-card overflow-hidden">
             <div className="border-b border-border bg-muted px-4 py-2.5 flex items-center">
@@ -97,7 +100,7 @@ export default function Home() {
               <JsonPreview data={parsedJson} />
             </div>
           </div>
-        </div>
+        </main>
 
         {/* Footer */}
         <footer className="shrink-0 text-center text-sm text-foreground/60 transition-colors">
@@ -112,6 +115,6 @@ export default function Home() {
           </a>
         </footer>
       </div>
-    </main>
+    </div>
   );
 }
