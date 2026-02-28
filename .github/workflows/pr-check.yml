@@ -1,4 +1,4 @@
-name: PR Check
+name: PR Check & Auto Merge
 
 on:
   pull_request:
@@ -6,6 +6,10 @@ on:
       - main
       - master
       - SAI@FEATURES
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   build-and-lint:
@@ -29,3 +33,11 @@ jobs:
 
       - name: Run build
         run: npm run build
+
+      - name: Auto-merge PR
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "✅ Lint and Build passed! Merging PR #${{ github.event.pull_request.number }}..."
+          gh pr merge ${{ github.event.pull_request.number }} --merge --auto
