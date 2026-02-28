@@ -1,9 +1,19 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google"; // Use Inter as requested/preferred
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://json-viewer.sainathreddy.in"),
@@ -25,23 +35,43 @@ export const metadata: Metadata = {
     "validate JSON",
     "beautify JSON",
     "developer tools",
+    "JSON beautifier",
+    "JSON stringify",
+    "JSON tree viewer",
+    "free JSON formatter",
+    "JSON syntax checker",
   ],
-  authors: [{ name: "Sainathreddy" }],
-  creator: "Sainathreddy",
-  publisher: "Sainathreddy",
+  authors: [{ name: "Sainath Reddy", url: "https://sainathreddy.in" }],
+  creator: "Sainath Reddy",
+  publisher: "Sainath Reddy",
+  applicationName: "JSON Viewer",
+  category: "Developer Tools",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
+    locale: "en_US",
     url: "https://json-viewer.sainathreddy.in",
     title: "Free Online JSON Viewer, Formatter & Validator",
     description:
-      "Paste, upload, or fetch JSON to validate, format, and visualize it in a beautiful, interactive tree structure.",
+      "Paste, upload, or fetch JSON to validate, format, and visualize it in a beautiful, interactive tree structure. Professional JSON tools for developers.",
     siteName: "JSON Viewer",
     images: [
       {
@@ -81,12 +111,19 @@ export default function RootLayout({
               "@type": "WebApplication",
               name: "JSON Viewer",
               url: "https://json-viewer.sainathreddy.in",
-              description: "Free online JSON viewer, formatter, and validator.",
+              description:
+                "Free online JSON viewer, formatter, and validator. Paste, upload, or fetch JSON to format and visualize it in an interactive tree structure.",
               applicationCategory: "DeveloperApplication",
               operatingSystem: "Any",
               author: {
                 "@type": "Person",
                 name: "Sainath Reddy",
+                url: "https://sainathreddy.in",
+              },
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "USD",
               },
             }),
           }}
