@@ -4,7 +4,15 @@ A fast, modern, and user-friendly web application for viewing, formatting, and v
 
 ![JSON Viewer Demo](public/favicon.ico) <!-- You can replace this with an actual screenshot of the app -->
 
-## ✨ Features
+```bash
+npm run dev 
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
 - **JSON Formatting & Prettifying**: Automatically format minified JSON strings into readable, indented structures.
 - **JSON Validation**: Instantly detect syntax errors in your JSON code with clear error messages.
