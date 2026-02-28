@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - master
+      - SAI@FEATURES
 
 jobs:
   build-and-lint:
