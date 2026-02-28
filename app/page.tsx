@@ -64,7 +64,10 @@ export default function Home() {
             </h1>
           </div>
 
-          <div className="flex">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium text-foreground/80 hidden sm:inline-block">
+              Theme
+            </span>
             <ThemeToggle />
           </div>
         </header>
