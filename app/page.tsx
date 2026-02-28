@@ -84,7 +84,7 @@ export default function Home() {
                 Editor
               </span>
             </div>
-            <div className="flex-1 relative bg-[#1e1e1e]">
+            <div className="flex-1 relative bg-background">
               <JsonInput value={jsonInput} onChange={handleInputChange} />
             </div>
           </div>
@@ -96,7 +96,7 @@ export default function Home() {
                 Viewer
               </span>
             </div>
-            <div className="flex-1 relative bg-[#0d1117]">
+            <div className="flex-1 relative bg-background">
               <JsonPreview data={parsedJson} />
             </div>
           </div>

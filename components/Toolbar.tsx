@@ -1,5 +1,6 @@
 import React from "react";
 import { Maximize2, Copy, Trash2 } from "lucide-react";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface ToolbarProps {
   onFormat: () => void;
@@ -54,6 +55,8 @@ const Toolbar: React.FC<ToolbarProps> = ({ onFormat, onCopy, onClear }) => {
         label="Clear"
         variant="danger"
       />
+      <div className="w-px h-5 bg-border hidden sm:block" />
+      <ThemeToggle />
     </div>
   );
 };

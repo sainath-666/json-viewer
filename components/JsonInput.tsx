@@ -2,6 +2,7 @@
 
 import React from "react";
 import Editor from "@monaco-editor/react";
+import { useTheme } from "next-themes";
 
 interface JsonInputProps {
   value: string;
@@ -9,12 +10,14 @@ interface JsonInputProps {
 }
 
 const JsonInput: React.FC<JsonInputProps> = ({ value, onChange }) => {
+  const { resolvedTheme } = useTheme();
+
   return (
     <div className="absolute inset-0 pt-2 group/editor">
       <Editor
         height="100%"
         defaultLanguage="json"
-        theme="vs-dark"
+        theme={resolvedTheme === "light" ? "light" : "vs-dark"}
         value={value}
         onChange={(val) => onChange(val || "")}
         options={{

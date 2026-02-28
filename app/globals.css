@@ -26,7 +26,36 @@
 }
 
 @layer base {
-  :root,
+  :root {
+    --background: #ffffff;
+    --foreground: #24292f;
+    --card: #ffffff;
+    --card-foreground: #24292f;
+    --popover: #ffffff;
+    --popover-foreground: #24292f;
+    --primary: #0969da;
+    --primary-foreground: #ffffff;
+    --secondary: #f6f8fa;
+    --secondary-foreground: #24292f;
+    --muted: #f6f8fa;
+    --muted-foreground: #57606a;
+    --accent: #f6f8fa;
+    --accent-foreground: #0969da;
+    --destructive: #cf222e;
+    --destructive-foreground: #ffffff;
+    --border: #d0d7de;
+    --input: #ffffff;
+    --ring: #0969da;
+    --radius: 0.5rem;
+
+    --json-field-color: #0550ae;
+    --json-string-color: #0a3069;
+    --json-number-color: #0550ae;
+    --json-boolean-color: #cf222e;
+    --json-null-color: #cf222e;
+    --json-icon-filter: none;
+  }
+
   .dark {
     --background: #0d1117;
     --foreground: #c9d1d9;
@@ -47,7 +76,13 @@
     --border: #30363d;
     --input: #0d1117;
     --ring: #58a6ff;
-    --radius: 0.5rem;
+
+    --json-field-color: #79c0ff;
+    --json-string-color: #a5d6ff;
+    --json-number-color: #79c0ff;
+    --json-boolean-color: #ff7b72;
+    --json-null-color: #ff7b72;
+    --json-icon-filter: invert(1) opacity(0.7);
   }
 
   body {
@@ -155,23 +190,23 @@
 }
 
 div.jsoneditor-field {
-  color: #79c0ff !important;
+  color: var(--json-field-color) !important;
 }
 
 div.jsoneditor-value.jsoneditor-string {
-  color: #a5d6ff !important;
+  color: var(--json-string-color) !important;
 }
 
 div.jsoneditor-value.jsoneditor-number {
-  color: #79c0ff !important;
+  color: var(--json-number-color) !important;
 }
 
 div.jsoneditor-value.jsoneditor-boolean {
-  color: #ff7b72 !important;
+  color: var(--json-boolean-color) !important;
 }
 
 div.jsoneditor-value.jsoneditor-null {
-  color: #ff7b72 !important;
+  color: var(--json-null-color) !important;
 }
 
 .jsoneditor-readonly {
@@ -186,5 +221,5 @@ div.jsoneditor-value.jsoneditor-null {
 .jsoneditor-sort,
 .jsoneditor-transform,
 .jsoneditor-repair {
-  filter: invert(1) opacity(0.7);
+  filter: var(--json-icon-filter);
 }
