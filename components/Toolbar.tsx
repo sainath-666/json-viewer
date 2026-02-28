@@ -14,7 +14,7 @@ const ToolButton: React.FC<{
   variant?: "primary" | "secondary" | "danger";
 }> = ({ onClick, icon, label, variant = "secondary" }) => {
   const baseClass =
-    "flex items-center justify-center gap-2 h-9 px-3 sm:px-4 text-[13px] font-medium rounded-md transition-colors focus:outline-none";
+    "flex items-center justify-center gap-2 h-8 px-2.5 sm:px-3 text-[12px] font-medium rounded-md transition-colors focus:outline-none";
 
   const variants = {
     primary: "bg-primary text-primary-foreground hover:bg-primary/90",
@@ -34,14 +34,14 @@ const ToolButton: React.FC<{
 
 const Toolbar: React.FC<ToolbarProps> = ({ onFormat, onCopy, onClear }) => {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-2">
       <ToolButton
         onClick={onFormat}
         icon={<Maximize2 />}
         label="Format"
         variant="primary"
       />
-      <div className="w-px h-5 bg-border hidden sm:block" />
+      <div className="w-px h-4 bg-border hidden sm:block" />
       <ToolButton
         onClick={onCopy}
         icon={<Copy />}
