@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import JsonInput from "@/components/JsonInput";
 import JsonPreview from "@/components/JsonPreview";
 import Toolbar from "@/components/Toolbar";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { formatJson } from "@/utils/jsonUtils";
 import Image from "next/image";
 
@@ -64,11 +65,7 @@ export default function Home() {
           </div>
 
           <div className="flex">
-            <Toolbar
-              onFormat={handleFormat}
-              onCopy={handleCopy}
-              onClear={handleClear}
-            />
+            <ThemeToggle />
           </div>
         </header>
 
@@ -79,10 +76,15 @@ export default function Home() {
         >
           {/* Source Left */}
           <div className="flex flex-col border border-border rounded-xl bg-card overflow-hidden">
-            <div className="border-b border-border bg-muted px-4 py-2.5 flex items-center">
+            <div className="border-b border-border bg-muted px-4 py-2 flex items-center justify-between h-[52px]">
               <span className="text-sm font-medium text-foreground">
                 Editor
               </span>
+              <Toolbar
+                onFormat={handleFormat}
+                onCopy={handleCopy}
+                onClear={handleClear}
+              />
             </div>
             <div className="flex-1 relative bg-background">
               <JsonInput value={jsonInput} onChange={handleInputChange} />
@@ -91,7 +93,7 @@ export default function Home() {
 
           {/* Tree Right */}
           <div className="flex flex-col border border-border rounded-xl bg-card overflow-hidden">
-            <div className="border-b border-border bg-muted px-4 py-2.5 flex items-center">
+            <div className="border-b border-border bg-muted px-4 py-2 flex items-center h-[52px]">
               <span className="text-sm font-medium text-foreground">
                 Viewer
               </span>
