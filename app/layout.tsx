@@ -26,9 +26,9 @@ export const metadata: Metadata = {
     "beautify JSON",
     "developer tools",
   ],
-  authors: [{ name: "Sainath Reddy" }],
-  creator: "Sainath Reddy",
-  publisher: "Sainath Reddy",
+  authors: [{ name: "Sainathreddy" }],
+  creator: "Sainathreddy",
+  publisher: "Sainathreddy",
   robots: {
     index: true,
     follow: true,
